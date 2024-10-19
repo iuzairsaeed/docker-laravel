@@ -27,7 +27,7 @@ docker-compose up -d
 
 ### Access the Application
 
-Open your web browser and navigate to [http://localhost:80](http://localhost:80) to see your Laravel application running.
+Open your web browser and navigate to [http://localhost:8000](http://localhost:8000) to see your Laravel application running.
 
 ## Database Configuration in Laravel
 
