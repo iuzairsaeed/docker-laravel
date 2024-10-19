@@ -23,12 +23,10 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
 
-  # Optional Redis Service
   redis:
     image: redis:alpine
     container_name: redis
     restart: unless-stopped
 
-# Docker Volumes
 volumes:
   dbdata:
