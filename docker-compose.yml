@@ -11,19 +11,16 @@ services:
     ports:
       - "8000:80"
 
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
+  postgres:
+    image: postgres:alpine
+    container_name: pgsql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: secret
-    volumes:
-      - dbdata:/var/lib/mysql
+      POSTGRES_DB: laravel
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
     ports:
-      - "3306:3306"
+      - "5432:5432"
 
   redis:
     image: redis:alpine
@@ -31,6 +28,3 @@ services:
     restart: unless-stopped
     ports:
       - "6379:6379"
-
-volumes:
-  dbdata:
