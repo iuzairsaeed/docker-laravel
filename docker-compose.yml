@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www
     volumes:
-      - ../secure-med-sys:/var/www
+      - ../secure-medical-app:/var/www
     ports:
       - "8000:80"
 
