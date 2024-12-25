@@ -11,10 +11,29 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zip \
     unzip \
     curl \
+    ghostscript \
+    imagemagick \
     libpq-dev \
+    libmagickwand-dev \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Define the path to the configuration file
+ENV CONF_FILE="/etc/ImageMagick-6/policy.xml"
+
+# Update the ImageMagick policy.xml file
+RUN sed -i '/<policymap>/,/<\/policymap>/c\
+<policymap>\
+  <policy domain="coder" rights="read|write" pattern="PDF" />\
+  <policy domain="coder" rights="read|write" pattern="LABEL" />\
+  <policy domain="module" rights="read|write" pattern="{PS,PDF,XPS,EPS,PS2,PS3}" />\
+  <policy domain="delegate" rights="none" pattern="HTTP" />\
+  <policy domain="delegate" rights="none" pattern="HTTPS" />\
+  <policy domain="coder" rights="read|write" pattern="{GIF,JPEG,PNG,WEBP}" />\
+</policymap>' $CONF_FILE
 
 RUN a2enmod rewrite
 
